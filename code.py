@@ -1,9 +1,15 @@
-import http.server, socketserver
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
-PORT = 8000
+hostName = 'localhost'
+serverPort = 8080
 
-Handler = http.server.SimpleHTTPRequestHandler
+class web_server(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write(bytes("<p>Hello, World wide web!</p>", "utf-8"))
 
-with socketserver.TCPServer(('', PORT), Handler) as httpd:
-    print('serving at port', PORT)
-    httpd.serve_forever
+httpd = HTTPServer((hostName, serverPort), web_server)
+print('Server running at localhost: 8080...')
+httpd.serve_forever()
