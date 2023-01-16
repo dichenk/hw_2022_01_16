@@ -1,6 +1,4 @@
 import http.server, socketserver
-import cgi
-import BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 PORT = 8000
 
